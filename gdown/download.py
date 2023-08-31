@@ -332,4 +332,4 @@ def download(
     finally:
         sess.close()
 
-    return output
+    return output, url

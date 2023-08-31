@@ -275,14 +275,14 @@ def download_folder(
 
     if not quiet:
         print("Building directory structure completed")
-    filenames = []
+    filenames = {}
     for file_id, file_path in directory_structure:
         if file_id is None:  # folder
             if not osp.exists(file_path):
                 os.makedirs(file_path)
             continue
 
-        filename = download(
+        filename, url = download(
             url="https://drive.google.com/uc?id=" + file_id,
             output=file_path,
             quiet=quiet,
@@ -296,7 +296,7 @@ def download_folder(
             if not quiet:
                 print("Download ended unsuccessfully", file=sys.stderr)
             return
-        filenames.append(filename)
+        filenames[filename] = url
     if not quiet:
         print("Download completed", file=sys.stderr)
     return filenames
